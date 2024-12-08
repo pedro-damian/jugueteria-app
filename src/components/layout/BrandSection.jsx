@@ -30,8 +30,14 @@ function BrandSection() {
       {
         id: 6,
         name: 'UNO',
-        image: '/src/assets/brands/uno-logo.png',
+        image: '/src/assets/brands/marvel-logo.png',
       },
+      {
+        id: 7,
+        name: 'UNO',
+        image: '/src/assets/brands/playskool-logo.png',
+      },
+      
     ];
   
     return (
@@ -42,12 +48,12 @@ function BrandSection() {
             {brands.map((brand) => (
               <div 
                 key={brand.id} 
-                className="w-24 md:w-32 hover:opacity-75 transition-opacity"
+                className="w-16 md:w-24 hover:opacity-75 transition-opacity" 
               >
                 <img
                   src={brand.image}
                   alt={brand.name}
-                  className="w-full h-auto object-contain"
+                  className="w-full h-auto object-contain max-h-16" 
                 />
               </div>
             ))}

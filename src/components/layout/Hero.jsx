@@ -1,5 +1,5 @@
 import React from "react";
-import ButtonProduct from "../common/ButtonProduct";
+import { Link } from "react-router-dom";
 
 function Hero() {
   return (
@@ -19,7 +19,7 @@ function Hero() {
             <p className="text-2xl mb-8">
               Los mejores juguetes para tus pequeños
             </p>
-            <ButtonProduct />
+            <Link className="btn-primary">Ver Productos</Link>
           </div>
         </div>
       </div>
