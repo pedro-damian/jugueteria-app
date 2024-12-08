@@ -8,7 +8,7 @@ function Login() {
       <div className="w-full max-w-md space-y-8">
         {/* Encabezado */}
         <div className="text-center">
-          <h2 className="text-3xl font-bold tracking-tight text-gray-900">
+          <h2 className="text-2xl font-bold tracking-tight text-gray-900">
             Iniciar sesión
           </h2>
         </div>
@@ -47,25 +47,6 @@ function Login() {
                   placeholder="ingresa tu contraseña"
                   id="password"
                   name="password"
-                  type="password"
-                  required
-                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500"
-                />
-              </div>
-            </div>
-
-            <div>
-              <label
-                htmlFor="confirmPassword"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Confirmar contraseña
-              </label>
-              <div className="mt-1">
-                <input
-                  placeholder="vuelve ingresar tu contraseña"
-                  id="confirmPassword"
-                  name="confirmPassword"
                   type="password"
                   required
                   className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500"

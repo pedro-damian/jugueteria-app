@@ -8,7 +8,7 @@ function Registro() {
       <div className="w-full max-w-md space-y-8">
         {/* Encabezado */}
         <div className="text-center">
-          <h2 className="text-3xl font-bold tracking-tight text-gray-900">
+          <h2 className="text-2xl font-bold tracking-tight text-gray-900">
             Crear cuenta
           </h2>
         </div>
@@ -21,7 +21,7 @@ function Registro() {
                 htmlFor="firstName"
                 className="block text-sm font-medium text-gray-700"
               >
-                Nombre
+                Nombre:
               </label>
               <div className="mt-1">
                 <input
@@ -29,7 +29,6 @@ function Registro() {
                   id="firstName"
                   name="firstName"
                   type="text"
-                  required
                   className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500"
                 />
               </div>
@@ -40,7 +39,7 @@ function Registro() {
                 htmlFor="lastName"
                 className="block text-sm font-medium text-gray-700"
               >
-                Apellido
+                Apellido:
               </label>
               <div className="mt-1">
                 <input
@@ -59,7 +58,7 @@ function Registro() {
                 htmlFor="email"
                 className="block text-sm font-medium text-gray-700"
               >
-                Correo electrónico
+                Correo electrónico:
               </label>
               <div className="mt-1">
                 <input
@@ -78,7 +77,7 @@ function Registro() {
                 htmlFor="password"
                 className="block text-sm font-medium text-gray-700"
               >
-                Contraseña
+                Contraseña:
               </label>
               <div className="mt-1">
                 <input
