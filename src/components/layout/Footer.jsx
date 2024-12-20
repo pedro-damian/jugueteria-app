@@ -7,8 +7,8 @@ function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-4xl mx-auto">
           {/* Columna EMPRESA */}
           <div className="flex flex-col items-center text-center">
-            <h3 className="text-lg font-semibold mb-4 uppercase">Empresa</h3>
-            <ul className="space-y-2">
+            <h3 className=" font-semibold mb-4 uppercase">Empresa</h3>
+            <ul className="space-y-2 text-sm">
               <li>
                 <a href="#" className="text-gray-400 hover:text-white">
                   Nosotros
@@ -29,8 +29,8 @@ function Footer() {
 
           {/* Columna NECESITAS AYUDA */}
           <div className="flex flex-col items-center text-center">
-            <h3 className="text-lg font-semibold mb-4 uppercase">Necesitas ayuda</h3>
-            <ul className="space-y-2">
+            <h3 className=" font-semibold mb-4 uppercase">Necesitas ayuda</h3>
+            <ul className="space-y-2 text-sm">
               <li>
                 <a href="#" className="text-gray-400 hover:text-white">
                   Preguntas Frecuentes
@@ -61,18 +61,18 @@ function Footer() {
 
           {/* Columna REDES SOCIALES */}
           <div className="flex flex-col items-center text-center">
-            <h3 className="text-lg font-semibold mb-4 uppercase">Síguenos</h3>
+            <h3 className=" font-semibold mb-4 uppercase">Síguenos</h3>
             <div className="flex flex-col space-y-4">
               <a href="#" className="text-gray-400 hover:text-white flex items-center">
-                <FaFacebook className="text-xl mr-2" />
+                <FaFacebook className=" mr-2" />
                 Facebook
               </a>
               <a href="#" className="text-gray-400 hover:text-white flex items-center">
-                <FaInstagram className="text-xl mr-2" />
+                <FaInstagram className=" mr-2" />
                 Instagram
               </a>
               <a href="#" className="text-gray-400 hover:text-white flex items-center">
-                <FaTwitter className="text-xl mr-2" />
+                <FaTwitter className=" mr-2" />
                 Twitter
               </a>
             </div>
@@ -80,7 +80,7 @@ function Footer() {
         </div>
 
         {/* Copyright y créditos */}
-        <div className="mt-8 pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center text-sm text-gray-400">
+        <div className="mt-8 pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center text-xs text-gray-400">
           <p>© 2024 Mundo Mágico. Todos los derechos reservados</p>
           <p className="mt-2 md:mt-0">Desarrollado por Suicide Squad</p>
         </div>
