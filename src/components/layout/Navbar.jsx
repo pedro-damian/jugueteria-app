@@ -3,11 +3,24 @@ import { useState } from "react";
 import { FaShoppingCart, FaRegHeart } from "react-icons/fa";
 import { FiUser, FiShoppingCart, FiMenu, FiX } from "react-icons/fi";
 import BannerCotiza from "../common/BannerCotiza";
+import { autenticacionUsuario } from "../../context/AuthContext";
 
 function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+  const { user, logout } = autenticacionUsuario(); // Obtén el usuario y la función logout del contexto
+
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+  };
+
+  const toggleUserMenu = () => {
+    setIsUserMenuOpen(!isUserMenuOpen);
+  };
+
+  const handleLogout = () => {
+    logout();
+    setIsUserMenuOpen(false);
   };
 
   return (
@@ -41,15 +54,58 @@ function Navbar() {
 
             {/* Iconos y botón de menú */}
             <div className="flex items-center space-x-4">
-              <Link
-                to="/registro"
-                className="hidden lg:block text-gray-700 hover:text-primary"
-              >
-                <span>Registrate</span>
-              </Link>
-              <Link to="/login" className="text-gray-700 hover:text-primary">
-                <FiUser className="text-xl" />
-              </Link>
+              {user ? (
+                <div className="hidden lg:block relative">
+                  <span className="text-gray-700">{user.email}</span>
+                </div>
+              ) : (
+                <Link
+                  to="/registro"
+                  className="hidden lg:block text-gray-700 hover:text-primary"
+                >
+                  <span>Registrate</span>
+                </Link>
+              )}
+
+              {/* Icono de usuario con menú desplegable */}
+              <div className="relative">
+                <button
+                  onClick={toggleUserMenu}
+                  className="text-gray-700 hover:text-primary focus:outline-none"
+                >
+                  <FiUser className="text-xl" />
+                </button>
+
+
+                {/* Menú desplegable del usuario: mi cuenta y cerrar sesion */}
+                {isUserMenuOpen && (
+                  <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50">
+                    {user ? (
+                      <>
+                        <Link
+                          to=""
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                          onClick={() => setIsUserMenuOpen(false)}
+                        >
+                          Mi Cuenta
+                        </Link>
+                        <button
+                          onClick={handleLogout}
+                          className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                        >
+                          Cerrar Sesión
+                        </button>
+                      </>
+                    ) : (
+                      <Link to="/login" className="text-gray-700 hover:text-primary">
+                        
+                      </Link>
+                    )}
+                  </div>
+                )}
+              </div>
+
+
               <Link to="" className="text-gray-700 hover:text-primary">
                 <FaRegHeart className="text-xl" />
               </Link>
@@ -91,12 +147,32 @@ function Navbar() {
                 >
                   Nuestras Ofertas
                 </Link>
-                <Link
-                  to="/registro"
-                  className="block px-3 py-2 text-gray-700 hover:text-primary hover:bg-gray-50"
-                >
-                  Registrate
-                </Link>
+
+
+                {user ? (
+                  <>
+                    <Link
+                      to="/mi-cuenta"
+                      className="block px-3 py-2 text-gray-700 hover:text-primary hover:bg-gray-50"
+                    >
+                      Mi Cuenta
+                    </Link>
+                    <button
+                      onClick={handleLogout}
+                      className="block w-full text-left px-3 py-2 text-gray-700 hover:text-primary hover:bg-gray-50"
+                    >
+                      Cerrar Sesión
+                    </button>
+                  </>
+                ) : (
+                  <Link
+                    to="/registro"
+                    className="block px-3 py-2 text-gray-700 hover:text-primary hover:bg-gray-50"
+                  >
+                    Registrate
+                  </Link>
+                )}
+
               </div>
             </div>
           )}
