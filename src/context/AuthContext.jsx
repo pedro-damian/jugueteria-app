@@ -1,4 +1,4 @@
-import { createContext, useState, useContext } from 'react';
+import { createContext, useState, useContext } from "react";
 
 const AuthContext = createContext();
 
@@ -8,12 +8,12 @@ export function AuthProvider({ children }) {
   const login = (userData) => {
     setUser(userData);
     // Guardar en localStorage para persistencia
-    localStorage.setItem('user', JSON.stringify(userData));
+    localStorage.setItem("user", JSON.stringify(userData));
   };
 
   const logout = () => {
     setUser(null);
-    localStorage.removeItem('user');
+    localStorage.removeItem("user");
   };
 
   return (

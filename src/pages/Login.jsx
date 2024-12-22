@@ -1,12 +1,13 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { autenticacionUsuario } from "../context/AuthContext";
+import { loginUser } from "../api/Auth";
 
 function Login() {
   const navigate = useNavigate();
   const { login } = autenticacionUsuario();
   const [formData, setFormData] = useState({
-    username: "", // Cambia email por username
+    username: "",
     password: "",
   });
   const [error, setError] = useState("");
@@ -24,26 +25,11 @@ function Login() {
     setError("");
 
     try {
-      const response = await fetch("http://localhost:8080/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        // Asegúrate de que el token esté en data.token o cambia esto si es necesario
-        login(data.token); // Guarda el token en el contexto
-
-        navigate("/"); // Redirige al home
-      } else {
-        const errorData = await response.json();
-        setError(errorData.message || "Error al iniciar sesión");
-      }
+      const data = await loginUser(formData); // Usamos la función loginUser
+      login(data.token); // Guarda el token en el contexto
+      navigate("/"); // Redirige al home
     } catch (error) {
-      setError("Error de conexión");
+      setError(error.message);
     }
   };
 
@@ -73,9 +59,9 @@ function Login() {
                 <input
                   placeholder="ingresa tu nombre de usuario"
                   id="username"
-                  name="username" // Cambia el nombre del campo a username
-                  type="text" // Cambia el tipo a texto
-                  value={formData.username} // Cambia la variable a username
+                  name="username"
+                  type="text"
+                  value={formData.username}
                   onChange={handleChange}
                   required
                   className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500"

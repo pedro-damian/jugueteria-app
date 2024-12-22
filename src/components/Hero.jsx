@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 
 function Hero() {
@@ -19,7 +18,9 @@ function Hero() {
             <p className="text-2xl mb-8">
               Los mejores juguetes para tus pequeños
             </p>
-            <Link className="btn-primary">Ver Productos</Link>
+            <Link className="btn-primary bg-green-500 hover:bg-green-700 px-4 py-3 rounded-lg">
+              Ver Productos
+            </Link>
           </div>
         </div>
       </div>

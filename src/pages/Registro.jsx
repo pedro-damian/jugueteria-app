@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { registerUser } from "../api/Register";
 
 function Registro() {
   const [formData, setFormData] = useState({
@@ -12,7 +13,6 @@ function Registro() {
   const [errors, setErrors] = useState({});
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const [token, setToken] = useState("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -49,42 +49,24 @@ function Registro() {
 
     if (validateForm()) {
       try {
-        const response = await fetch("http://localhost:8080/auth/register", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
+        const data = await registerUser(formData);
+
+        // Guardar el token recibido
+        const receivedToken = data.token;
+        localStorage.setItem("authToken", receivedToken);
+
+        setSuccessMessage("Registro exitoso. ¡Bienvenido!");
+        console.log("Token recibido:", receivedToken);
+
+        // Limpiar el formulario
+        setFormData({
+          username: "",
+          lastname: "",
+          email: "",
+          password: "",
         });
-
-        if (response.ok) {
-          const data = await response.json();
-
-          // Guardar el token recibido
-          const receivedToken = data.token;
-          setToken(receivedToken);
-          localStorage.setItem("authToken", receivedToken);
-
-          setSuccessMessage("Registro exitoso. ¡Bienvenido!");
-          console.log("Token recibido:", receivedToken);
-
-          // Limpiar el formulario
-          setFormData({
-            username: "",
-            lastname: "",
-            email: "",
-            password: "",
-          });
-        } else {
-          const errorData = await response.json();
-          setErrorMessage(errorData.message || "Error al registrar.");
-          console.error("Error en el registro:", errorData);
-        }
       } catch (error) {
-        setErrorMessage(
-          "Error al conectar con el servidor. Por favor, intenta más tarde."
-        );
-        console.error("Error al conectar con la API:", error);
+        setErrorMessage(error.message);
       }
     }
   };
@@ -106,106 +88,37 @@ function Registro() {
           )}
 
           <form className="space-y-6" onSubmit={handleSubmit}>
-            <div>
-              <label
-                htmlFor="username"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Nombre:
-              </label>
-              <input
-                id="username"
-                name="username"
-                type="text"
-                value={formData.username}
-                onChange={handleChange}
-                placeholder="Ingresa tu nombre"
-                className={`mt-1 block w-full rounded-md shadow-sm ${
-                  errors.username ? "border-red-500" : "border-gray-300"
-                }`}
-              />
-              {errors.username && (
-                <p className="mt-1 text-sm text-red-600">{errors.username}</p>
-              )}
-            </div>
+            {["username", "lastname", "email", "password"].map((field) => (
+              <div key={field}>
+                <label
+                  htmlFor={field}
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  {field.charAt(0).toUpperCase() + field.slice(1)}:
+                </label>
+                <input
+                  id={field}
+                  name={field}
+                  type={field === "password" ? "password" : "text"}
+                  value={formData[field]}
+                  onChange={handleChange}
+                  placeholder={`Ingresa tu ${field}`}
+                  className={`w-full px-3 py-2 border rounded-md shadow-sm placeholder-gray-400 focus:outline-none ${
+                    errors[field] ? "border-red-500" : "border-gray-300"
+                  }`}
+                />
+                {errors[field] && (
+                  <p className="mt-1 text-sm text-red-600">{errors[field]}</p>
+                )}
+              </div>
+            ))}
 
-            <div>
-              <label
-                htmlFor="lastname"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Apellido:
-              </label>
-              <input
-                id="lastname"
-                name="lastname"
-                type="text"
-                value={formData.lastname}
-                onChange={handleChange}
-                placeholder="Ingresa tu apellido"
-                className={`mt-1 block w-full rounded-md shadow-sm ${
-                  errors.lastname ? "border-red-500" : "border-gray-300"
-                }`}
-              />
-              {errors.lastname && (
-                <p className="mt-1 text-sm text-red-600">{errors.lastname}</p>
-              )}
-            </div>
-
-            <div>
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Correo electrónico:
-              </label>
-              <input
-                id="email"
-                name="email"
-                type="email"
-                value={formData.email}
-                onChange={handleChange}
-                placeholder="Ingresa tu correo electrónico"
-                className={`mt-1 block w-full rounded-md shadow-sm ${
-                  errors.email ? "border-red-500" : "border-gray-300"
-                }`}
-              />
-              {errors.email && (
-                <p className="mt-1 text-sm text-red-600">{errors.email}</p>
-              )}
-            </div>
-
-            <div>
-              <label
-                htmlFor="password"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Contraseña:
-              </label>
-              <input
-                id="password"
-                name="password"
-                type="password"
-                value={formData.password}
-                onChange={handleChange}
-                placeholder="Crea una contraseña"
-                className={`mt-1 block w-full rounded-md shadow-sm ${
-                  errors.password ? "border-red-500" : "border-gray-300"
-                }`}
-              />
-              {errors.password && (
-                <p className="mt-1 text-sm text-red-600">{errors.password}</p>
-              )}
-            </div>
-
-            <div>
-              <button
-                type="submit"
-                className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700 transition duration-200"
-              >
-                Registrarse
-              </button>
-            </div>
+            <button
+              type="submit"
+              className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700 transition duration-200"
+            >
+              Registrarse
+            </button>
           </form>
 
           <div className="mt-6 text-center">
