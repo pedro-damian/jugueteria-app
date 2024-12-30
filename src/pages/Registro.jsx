@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { registroUsuario } from "../api/Registro";
 
 function Registro() {
   // Estado para los campos del formulario
   const [formData, setFormData] = useState({
-    firstName: "",
+    userName: "",
     lastName: "",
     email: "",
     password: "",
@@ -15,7 +16,6 @@ function Registro() {
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
-  
   // Manejar cambios en los inputs
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -25,12 +25,11 @@ function Registro() {
     }));
   };
 
-
   // Validar el formulario
   const validateForm = () => {
     let tempErrors = {};
-    if (!formData.firstName.trim()) {
-      tempErrors.firstName = "El nombre es requerido";
+    if (!formData.userName.trim()) {
+      tempErrors.userName = "El nombre es requerido";
     }
     if (!formData.lastName.trim()) {
       tempErrors.lastName = "El apellido es requerido";
@@ -50,7 +49,6 @@ function Registro() {
     return Object.keys(tempErrors).length === 0;
   };
 
-
   // Manejar el envío del formulario
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -59,29 +57,30 @@ function Registro() {
 
     if (validateForm()) {
       try {
-        const response = await fetch("TU_URL_API/registro", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        });
+        // const response = await fetch("TU_URL_API/registro", {
+        //   method: "POST",
+        //   headers: {
+        //     "Content-Type": "application/json",
+        //   },
+        //   body: JSON.stringify(formData),
 
-        if (response.ok) {
-          const data = await response.json();
-          setSuccessMessage("Registro exitoso");
-          console.log("Registro exitoso:", data);
-          
-        } else {
-          const errorData = await response.json();
-          setErrorMessage("Error en el registro: " + errorData.message);
-          console.error("Error en el registro:", errorData);
-          
-        }
+        const data = await registroUsuario(formData);
+        const receivedToken = data.token;
+        localStorage.setItem("authToken", receivedToken);
+
+        setSuccessMessage("Registro exitoso. ¡Bienvenido!");
+        console.log("Token recibido:", receivedToken);
+
+        // Limpiar el formulario
+        setFormData({
+          userName: "",
+          lastName: "",
+          email: "",
+          password: "",
+        });
       } catch (error) {
         setErrorMessage("Error al conectar con la API");
         console.error("Error al conectar con la API:", error);
-       
       }
     }
   };
@@ -100,7 +99,6 @@ function Registro() {
 
         {/* Contenedor del formulario con fondo blanco */}
         <div className="bg-white rounded-lg shadow px-6 py-8 sm:px-8">
-
           {/* Mostrar mensajes de Exito y Error */}
           {successMessage && (
             <div className="text-green-500 text-sm mb-4">{successMessage}</div>
@@ -120,18 +118,17 @@ function Registro() {
               <div className="mt-1">
                 <input
                   placeholder="ingresa tu nombre"
-                  id="firstName"
-                  name="firstName"
+                  id="userName"
+                  name="userName"
                   type="text"
-
-                  value={formData.firstName}
+                  value={formData.userName}
                   onChange={handleChange}
                   className={`appearance-none block w-full px-3 py-2 border ${
-                    errors.firstName ? 'border-red-500' : 'border-gray-300'
+                    errors.userName ? "border-red-500" : "border-gray-300"
                   } rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500`}
                 />
-                {errors.firstName && (
-                  <p className="mt-1 text-sm text-red-600">{errors.firstName}</p>
+                {errors.userName && (
+                  <p className="mt-1 text-sm text-red-600">{errors.userName}</p>
                 )}
               </div>
             </div>
@@ -149,12 +146,10 @@ function Registro() {
                   id="lastName"
                   name="lastName"
                   type="text"
-
                   value={formData.lastName}
                   onChange={handleChange}
-                  
                   className={`appearance-none block w-full px-3 py-2 border ${
-                    errors.lastName ? 'border-red-500' : 'border-gray-300'
+                    errors.lastName ? "border-red-500" : "border-gray-300"
                   } rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500`}
                 />
                 {errors.lastName && (
@@ -176,12 +171,10 @@ function Registro() {
                   id="email"
                   name="email"
                   type="email"
-
                   value={formData.email}
                   onChange={handleChange}
-                  
                   className={`appearance-none block w-full px-3 py-2 border ${
-                    errors.email ? 'border-red-500' : 'border-gray-300'
+                    errors.email ? "border-red-500" : "border-gray-300"
                   } rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500`}
                 />
                 {errors.email && (
@@ -203,12 +196,10 @@ function Registro() {
                   id="password"
                   name="password"
                   type="password"
-
                   value={formData.password}
                   onChange={handleChange}
-                  
                   className={`appearance-none block w-full px-3 py-2 border ${
-                    errors.password ? 'border-red-500' : 'border-gray-300'
+                    errors.password ? "border-red-500" : "border-gray-300"
                   } rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500`}
                 />
                 {errors.password && (

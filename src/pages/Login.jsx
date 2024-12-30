@@ -3,20 +3,19 @@ import { useState } from "react";
 import { autenticacionUsuario } from "../context/AuthContext";
 
 function Login() {
-
   const navigate = useNavigate();
   const { login } = autenticacionUsuario();
   const [formData, setFormData] = useState({
-    email: "",
+    userName: "",
     password: "",
   });
   const [error, setError] = useState("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prevState => ({
+    setFormData((prevState) => ({
       ...prevState,
-      [name]: value
+      [name]: value,
     }));
   };
 
@@ -25,28 +24,27 @@ function Login() {
     setError("");
 
     try {
-      const response = await fetch('URL_API/login', {
-        method: 'POST',
+      const response = await fetch("http://localhost:8080/auth/login", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData)
+        body: JSON.stringify(formData),
       });
 
       if (response.ok) {
         const data = await response.json();
         // Guardar el token y la información del usuario
         login(data);
-        navigate('/'); // Redirige al home
+        navigate("/"); // Redirige al home
       } else {
         const errorData = await response.json();
-        setError(errorData.message || 'Error al iniciar sesión');
+        setError(errorData.message || "Error al iniciar sesión");
       }
     } catch (error) {
-      setError('Error de conexión');
+      setError("Error de conexión", error);
     }
   };
-
 
   return (
     // Contenedor principal
@@ -62,7 +60,6 @@ function Login() {
 
         {/* Contenedor del formulario con fondo blanco */}
         <div className="bg-white rounded-lg shadow px-6 py-8 sm:px-8">
-
           {error && (
             <div className="mb-4 p-2 bg-red-100 text-red-700 rounded">
               {error}
@@ -75,7 +72,7 @@ function Login() {
                 htmlFor="email"
                 className="block text-sm font-medium text-gray-700"
               >
-                Correo electrónico
+                Nombre Usuario:
               </label>
               <div className="mt-1">
                 <input
@@ -83,7 +80,7 @@ function Login() {
                   id="email"
                   name="email"
                   type="email"
-                  value={formData.email}
+                  value={formData.userName}
                   onChange={handleChange}
                   required
                   className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500"

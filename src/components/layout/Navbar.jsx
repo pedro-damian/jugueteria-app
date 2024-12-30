@@ -76,7 +76,6 @@ function Navbar() {
                   <FiUser className="text-xl" />
                 </button>
 
-
                 {/* Menú desplegable del usuario: mi cuenta y cerrar sesion */}
                 {isUserMenuOpen && (
                   <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50">
@@ -97,14 +96,17 @@ function Navbar() {
                         </button>
                       </>
                     ) : (
-                      <Link to="/login" className="text-gray-700 hover:text-primary">
-                        
+                      <Link
+                        to="/login"
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                        onClick={() => setIsUserMenuOpen(false)}
+                      >
+                        Iniciar Sesión
                       </Link>
                     )}
                   </div>
                 )}
               </div>
-
 
               <Link to="" className="text-gray-700 hover:text-primary">
                 <FaRegHeart className="text-xl" />
@@ -148,7 +150,6 @@ function Navbar() {
                   Nuestras Ofertas
                 </Link>
 
-
                 {user ? (
                   <>
                     <Link
@@ -172,7 +173,6 @@ function Navbar() {
                     Registrate
                   </Link>
                 )}
-
               </div>
             </div>
           )}
