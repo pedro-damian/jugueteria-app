@@ -1,12 +1,13 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { autenticacionUsuario } from "../context/AuthContext";
+import { loginUser} from "../api/Autenticacion";
 
 function Login() {
   const navigate = useNavigate();
   const { login } = autenticacionUsuario();
   const [formData, setFormData] = useState({
-    userName: "",
+    username: "",
     password: "",
   });
   const [error, setError] = useState("");
@@ -24,23 +25,9 @@ function Login() {
     setError("");
 
     try {
-      const response = await fetch("http://localhost:8080/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        // Guardar el token y la información del usuario
-        login(data);
-        navigate("/"); // Redirige al home
-      } else {
-        const errorData = await response.json();
-        setError(errorData.message || "Error al iniciar sesión");
-      }
+      const data = await loginUser(formData)
+      login(data.token);
+      navigate('/'); // Redirige a la página principal
     } catch (error) {
       setError("Error de conexión", error);
     }
@@ -69,7 +56,7 @@ function Login() {
           <form className="space-y-6" onSubmit={handleSubmit}>
             <div>
               <label
-                htmlFor="email"
+                htmlFor="username"
                 className="block text-sm font-medium text-gray-700"
               >
                 Nombre Usuario:
@@ -77,10 +64,10 @@ function Login() {
               <div className="mt-1">
                 <input
                   placeholder="ingresa tu correo"
-                  id="email"
-                  name="email"
-                  type="email"
-                  value={formData.userName}
+                  id="username"
+                  name="username"
+                  type="text"
+                  value={formData.username}
                   onChange={handleChange}
                   required
                   className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500"

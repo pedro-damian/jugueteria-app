@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import { registroUsuario } from "../api/Registro";
+import { registerUser } from "../api/Registro";
 
 function Registro() {
   // Estado para los campos del formulario
   const [formData, setFormData] = useState({
-    userName: "",
-    lastName: "",
+    username: "",
+    lastname: "",
     email: "",
     password: "",
   });
@@ -28,11 +28,11 @@ function Registro() {
   // Validar el formulario
   const validateForm = () => {
     let tempErrors = {};
-    if (!formData.userName.trim()) {
-      tempErrors.userName = "El nombre es requerido";
+    if (!formData.username.trim()) {
+      tempErrors.username = "El nombre es requerido";
     }
-    if (!formData.lastName.trim()) {
-      tempErrors.lastName = "El apellido es requerido";
+    if (!formData.lastname.trim()) {
+      tempErrors.lastname = "El apellido es requerido";
     }
     if (!formData.email.trim()) {
       tempErrors.email = "El email es requerido";
@@ -57,14 +57,7 @@ function Registro() {
 
     if (validateForm()) {
       try {
-        // const response = await fetch("TU_URL_API/registro", {
-        //   method: "POST",
-        //   headers: {
-        //     "Content-Type": "application/json",
-        //   },
-        //   body: JSON.stringify(formData),
-
-        const data = await registroUsuario(formData);
+        const data = await registerUser(formData);
         const receivedToken = data.token;
         localStorage.setItem("authToken", receivedToken);
 
@@ -73,8 +66,8 @@ function Registro() {
 
         // Limpiar el formulario
         setFormData({
-          userName: "",
-          lastName: "",
+          username: "",
+          lastname: "",
           email: "",
           password: "",
         });
@@ -110,7 +103,7 @@ function Registro() {
           <form className="space-y-6" onSubmit={handleSubmit}>
             <div>
               <label
-                htmlFor="firstName"
+                htmlFor="username"
                 className="block text-sm font-medium text-gray-700"
               >
                 Nombre:
@@ -118,24 +111,24 @@ function Registro() {
               <div className="mt-1">
                 <input
                   placeholder="ingresa tu nombre"
-                  id="userName"
-                  name="userName"
+                  id="username"
+                  name="username"
                   type="text"
-                  value={formData.userName}
+                  value={formData.username}
                   onChange={handleChange}
                   className={`appearance-none block w-full px-3 py-2 border ${
-                    errors.userName ? "border-red-500" : "border-gray-300"
+                    errors.username ? "border-red-500" : "border-gray-300"
                   } rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500`}
                 />
-                {errors.userName && (
-                  <p className="mt-1 text-sm text-red-600">{errors.userName}</p>
+                {errors.username && (
+                  <p className="mt-1 text-sm text-red-600">{errors.username}</p>
                 )}
               </div>
             </div>
 
             <div>
               <label
-                htmlFor="lastName"
+                htmlFor="lastname"
                 className="block text-sm font-medium text-gray-700"
               >
                 Apellido:
@@ -143,17 +136,17 @@ function Registro() {
               <div className="mt-1">
                 <input
                   placeholder="ingresa tu apellido"
-                  id="lastName"
-                  name="lastName"
+                  id="lastname"
+                  name="lastname"
                   type="text"
-                  value={formData.lastName}
+                  value={formData.lastname}
                   onChange={handleChange}
                   className={`appearance-none block w-full px-3 py-2 border ${
-                    errors.lastName ? "border-red-500" : "border-gray-300"
+                    errors.lastname ? "border-red-500" : "border-gray-300"
                   } rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500`}
                 />
-                {errors.lastName && (
-                  <p className="mt-1 text-sm text-red-600">{errors.lastName}</p>
+                {errors.lastname && (
+                  <p className="mt-1 text-sm text-red-600">{errors.lastname}</p>
                 )}
               </div>
             </div>

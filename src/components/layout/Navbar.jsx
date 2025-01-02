@@ -56,7 +56,7 @@ function Navbar() {
             <div className="flex items-center space-x-4">
               {user ? (
                 <div className="hidden lg:block relative">
-                  <span className="text-gray-700">{user.email}</span>
+                  <span className="text-gray-700">{user.username}</span>
                 </div>
               ) : (
                 <Link
@@ -108,12 +108,14 @@ function Navbar() {
                 )}
               </div>
 
-              <Link to="" className="text-gray-700 hover:text-primary">
+              <Link to="favoritos" className="text-gray-700 hover:text-primary">
                 <FaRegHeart className="text-xl" />
               </Link>
-              <Link to="" className="text-gray-700 hover:text-primary">
+              <Link to="carrito" className="text-gray-700 hover:text-primary">
                 <FiShoppingCart className="text-xl" />
               </Link>
+
+              {/* Icono de menú para móvil */}
               <button
                 className="lg:hidden text-gray-700 hover:text-primary"
                 onClick={toggleMenu}
