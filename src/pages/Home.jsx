@@ -1,8 +1,6 @@
-
-import Hero from "../components/layout/Hero";
-import BrandSection from "../components/layout/BrandSection";
-import CategoriasDestacadas from "../components/layout/CategoriasDestacadas";
-
+import Hero from "../components/Hero";
+import BrandSection from "../components/BrandSection";
+import CategoriasDestacadas from "../components/CategoriasDestacadas";
 
 function Home() {
   return (
@@ -10,10 +8,10 @@ function Home() {
       {/* seccion Hero */}
       <Hero />
 
-       {/* Categorías Destacadas */}
+      {/* Categorías Destacadas */}
       <CategoriasDestacadas />
 
-        {/* Marcas de los juguetes */}
+      {/* Marcas de los juguetes */}
       <BrandSection />
     </div>
   );

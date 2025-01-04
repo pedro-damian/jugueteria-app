@@ -2,8 +2,8 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { FaShoppingCart, FaRegHeart } from "react-icons/fa";
 import { FiUser, FiShoppingCart, FiMenu, FiX } from "react-icons/fi";
-import BannerCotiza from "../common/BannerCotiza";
-import { autenticacionUsuario } from "../../context/AuthContext";
+import BannerCotiza from "./BannerCotiza";
+import { autenticacionUsuario } from "../context/AuthContext";
 
 function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -56,7 +56,7 @@ function Navbar() {
             <div className="flex items-center space-x-4">
               {user ? (
                 <div className="hidden lg:block relative">
-                  <span className="text-gray-700">{user.username}</span>
+                  <span className="text-gray-700">¡Hola, {user.username}!</span>
                 </div>
               ) : (
                 <Link

@@ -1,12 +1,12 @@
 import { Routes, Route } from "react-router-dom";
-import Navbar from "./components/layout/Navbar";
-import Footer from "./components/layout/Footer";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import Registro from "./pages/Registro";
 import Login from "./pages/Login";
 import { AuthProvider } from "./context/AuthContext";
-import NotFound from "./components/layout/NotFound404";
-import UnderConstruction from "./components/layout/UnderConstruction";
+import NotFound from "./components/NotFound404";
+import UnderConstruction from "./components/UnderConstruction";
 
 function App() {
   return (

@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { autenticacionUsuario } from "../context/AuthContext";
-import { loginUser} from "../api/Autenticacion";
+import { loginUser } from "../api/Autenticacion";
 
 function Login() {
   const navigate = useNavigate();
@@ -25,11 +25,16 @@ function Login() {
     setError("");
 
     try {
-      const data = await loginUser(formData)
-      login(data.token);
-      navigate('/'); // Redirige a la página principal
+      const userData = await loginUser(formData);
+      console.log("Datos del usuario:", userData);
+      login({
+        token: userData.token,
+        username: userData.username,
+        email: userData.email,
+      });
+      navigate("/"); // Redirige a la página principal
     } catch (error) {
-      setError("Error de conexión", error);
+      setError("Datos Incorrectos", error);
     }
   };
 
