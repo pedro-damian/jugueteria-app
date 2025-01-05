@@ -5,12 +5,32 @@ export const loginUser = async (credentials) => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(credentials),
+      credentials: "include", // Para manejar cookies si es necesario
+      body: JSON.stringify({
+        username: credentials.username,
+        password: credentials.password,
+      }),
     });
 
+    // Para debugging
+    console.log("Status:", response.status);
+    console.log("Headers:", response.headers);
+
     if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.message || "Error al iniciar sesión");
+      if (response.status === 403) {
+        throw new Error("Credenciales inválidas");
+      }
+
+      // Intenta obtener el mensaje de error del servidor
+      let errorMessage;
+      try {
+        const errorData = await response.json();
+        errorMessage = errorData.message;
+      } catch (e) {
+        errorMessage = "Error al procesar la respuesta del servidor";
+      }
+
+      throw new Error(errorMessage || "Error al iniciar sesión");
     }
 
     const data = await response.json();
@@ -18,7 +38,7 @@ export const loginUser = async (credentials) => {
 
     return {
       token: data.token,
-      username: data.username,
+      username: data.username || credentials.username,
       email: data.email,
       // otros datos que pueda devolver la API
     };

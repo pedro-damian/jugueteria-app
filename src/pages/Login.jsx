@@ -24,9 +24,21 @@ function Login() {
     e.preventDefault();
     setError("");
 
+    // Log para debugging
+    console.log("Intentando login con:", {
+      username: formData.username,
+      password: formData.password.length, // solo la longitud por seguridad
+    });
+
     try {
       const userData = await loginUser(formData);
       console.log("Datos del usuario:", userData);
+
+      // Asegúrate de que tienes todos los datos necesarios
+      if (!userData.token) {
+        throw new Error("No se recibió el token de autenticación");
+      }
+
       login({
         token: userData.token,
         username: userData.username,
@@ -34,7 +46,8 @@ function Login() {
       });
       navigate("/"); // Redirige a la página principal
     } catch (error) {
-      setError("Datos Incorrectos", error);
+      console.error("Error en login:", error);
+      setError(error.message || "Error al iniciar sesión");
     }
   };
 

@@ -4,6 +4,7 @@ import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import Registro from "./pages/Registro";
 import Login from "./pages/Login";
+import MiCuenta from "./pages/MiCuenta";
 import { AuthProvider } from "./context/AuthContext";
 import NotFound from "./components/NotFound404";
 import UnderConstruction from "./components/UnderConstruction";
@@ -18,6 +19,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/registro" element={<Registro />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/mi-cuenta" element={<MiCuenta />} />
 
             {/* Rutas en construcción */}
             <Route path="/favoritos" element={<UnderConstruction />} />
