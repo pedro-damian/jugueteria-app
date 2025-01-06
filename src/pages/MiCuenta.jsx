@@ -2,9 +2,8 @@ import { useState } from "react";
 import SidebarCuenta from "../components/cuenta/SideBarCuenta";
 import DatosPersonales from "../components/cuenta/DatosPersonales";
 import MisPedidos from "../components/cuenta/MisPedidos";
-import DireccionesEnvio from "../components/cuenta/DireccionesEnvio";
-//import Favoritos from "../components/cuenta/Favoritos";
 import CambiarPassword from "../components/cuenta/CambiarPassword";
+import Salir from "../components/cuenta/Salir";
 
 function MiCuenta() {
   const [seccionActiva, setSeccionActiva] = useState("datos");
@@ -15,12 +14,10 @@ function MiCuenta() {
         return <DatosPersonales />;
       case "pedidos":
         return <MisPedidos />;
-      case "direcciones":
-        return <DireccionesEnvio />;
-      //case "favoritos":
-      //return <Favoritos />;
       case "password":
         return <CambiarPassword />;
+      case "salir":
+        return <Salir />;
       default:
         return <DatosPersonales />;
     }

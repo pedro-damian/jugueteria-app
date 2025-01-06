@@ -4,7 +4,7 @@ function MisPedidos() {
       id: "1",
       fecha: "2024-01-15",
       total: 299.99,
-      estado: "Entregado",
+      estado: ["Entregado", "Pendiente"],
       productos: [{ nombre: "Juguete 1", cantidad: 2, precio: 149.99 }],
     },
     // Más pedidos...
@@ -33,7 +33,7 @@ function MisPedidos() {
                       : "text-blue-500"
                   }`}
                 >
-                  {pedido.estado}
+                  {pedido.estado[1]}
                 </p>
               </div>
             </div>

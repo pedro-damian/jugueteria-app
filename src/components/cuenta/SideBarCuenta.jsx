@@ -2,8 +2,8 @@ function SidebarCuenta({ seccionActiva, setSeccionActiva }) {
   const secciones = [
     { id: "datos", nombre: "Datos Personales" },
     { id: "pedidos", nombre: "Mis Pedidos" },
-    { id: "direcciones", nombre: "Direcciones de Envío" },
     { id: "password", nombre: "Cambiar Contraseña" },
+    { id: "salir", nombre: "Cerrar Sesión" },
   ];
 
   return (

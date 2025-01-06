@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 
 function CambiarPassword() {
   const [formData, setFormData] = useState({
@@ -109,7 +110,7 @@ function CambiarPassword() {
                 onClick={() => togglePasswordVisibility("actual")}
                 className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
               >
-                {showPassword.actual ? "👁️" : "👁️‍🗨️"}
+                {showPassword.actual ? <FaRegEye /> : <FaRegEyeSlash />}
               </button>
             </div>
           </div>
@@ -132,7 +133,7 @@ function CambiarPassword() {
                 onClick={() => togglePasswordVisibility("nuevo")}
                 className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
               >
-                {showPassword.nuevo ? "👁️" : "👁️‍🗨️"}
+                {showPassword.nuevo ? <FaRegEye /> : <FaRegEyeSlash />}
               </button>
             </div>
           </div>
@@ -155,20 +156,9 @@ function CambiarPassword() {
                 onClick={() => togglePasswordVisibility("confirmar")}
                 className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
               >
-                {showPassword.confirmar ? "👁️" : "👁️‍🗨️"}
+                {showPassword.confirmar ? <FaRegEye /> : <FaRegEyeSlash />}
               </button>
             </div>
-          </div>
-
-          {/* Requisitos de contraseña */}
-          <div className="text-sm text-gray-600">
-            <p>La contraseña debe cumplir con los siguientes requisitos:</p>
-            <ul className="list-disc list-inside mt-1">
-              <li>Mínimo 6 caracteres</li>
-              <li>Al menos una letra mayúscula</li>
-              <li>Al menos un número</li>
-              <li>Al menos un carácter especial</li>
-            </ul>
           </div>
 
           {/* Botón de envío */}
