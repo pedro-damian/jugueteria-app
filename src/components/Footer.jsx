@@ -63,15 +63,24 @@ function Footer() {
           <div className="flex flex-col items-center text-center">
             <h3 className=" font-semibold mb-4 uppercase">Síguenos</h3>
             <div className="flex flex-col space-y-4">
-              <a href="#" className="text-gray-400 hover:text-white flex items-center">
+              <a
+                href="#"
+                className="text-gray-400 hover:text-white flex items-center"
+              >
                 <FaFacebook className=" mr-2" />
                 Facebook
               </a>
-              <a href="#" className="text-gray-400 hover:text-white flex items-center">
+              <a
+                href="#"
+                className="text-gray-400 hover:text-white flex items-center"
+              >
                 <FaInstagram className=" mr-2" />
                 Instagram
               </a>
-              <a href="#" className="text-gray-400 hover:text-white flex items-center">
+              <a
+                href="#"
+                className="text-gray-400 hover:text-white flex items-center"
+              >
                 <FaTwitter className=" mr-2" />
                 Twitter
               </a>
@@ -82,7 +91,7 @@ function Footer() {
         {/* Copyright y créditos */}
         <div className="mt-8 pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center text-xs text-gray-400">
           <p>© 2024 Mundo Mágico. Todos los derechos reservados</p>
-          <p className="mt-2 md:mt-0">Desarrollado por Suicide Squad</p>
+          <p className="mt-2 md:mt-0">Desarrollado por Suicide Squa</p>
         </div>
       </div>
     </footer>

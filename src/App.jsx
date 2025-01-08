@@ -31,6 +31,7 @@ function App() {
             {/* Rutas en construcción */}
             <Route path="/favoritos" element={<UnderConstruction />} />
             <Route path="/carrito" element={<UnderConstruction />} />
+            <Route path="/ofertas" element={<UnderConstruction />} />
 
             {/* Ruta 404 para páginas no encontradas */}
             <Route path="*" element={<NotFound />} />

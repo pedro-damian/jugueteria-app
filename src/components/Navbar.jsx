@@ -44,10 +44,13 @@ function Navbar() {
               <Link to="/" className="text-gray-700 hover:text-primary">
                 Inicio
               </Link>
-              <Link to="" className="text-gray-700 hover:text-primary">
+              <Link
+                to="product-catalog"
+                className="text-gray-700 hover:text-primary"
+              >
                 Juguetes
               </Link>
-              <Link to="" className="text-gray-700 hover:text-primary">
+              <Link to="ofertas" className="text-gray-700 hover:text-primary">
                 Nuestras Ofertas
               </Link>
             </div>
