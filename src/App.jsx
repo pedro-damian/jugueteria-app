@@ -11,6 +11,8 @@ import UnderConstruction from "./components/UnderConstruction";
 import ProductCatalog from "./pages/ProductCatalog";
 import ProductList from "./pages/ProductList";
 import ProductDetail from "./pages/ProductDetail";
+import Carrito from "./pages/Carrito";
+import Checkout from "./pages/Checkout";
 
 function App() {
   return (
@@ -23,6 +25,8 @@ function App() {
             <Route path="/registro" element={<Registro />} />
             <Route path="/login" element={<Login />} />
             <Route path="/mi-cuenta" element={<MiCuenta />} />
+            <Route path="/carrito" element={<Carrito />} />
+            <Route path="/checkout" element={<Checkout />} />
 
             <Route path="/product-catalog" element={<ProductCatalog />} />
             <Route path="/products" element={<ProductList />} />
@@ -30,7 +34,6 @@ function App() {
 
             {/* Rutas en construcción */}
             <Route path="/favoritos" element={<UnderConstruction />} />
-            <Route path="/carrito" element={<UnderConstruction />} />
             <Route path="/ofertas" element={<UnderConstruction />} />
 
             {/* Ruta 404 para páginas no encontradas */}
