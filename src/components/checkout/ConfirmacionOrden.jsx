@@ -1,7 +1,6 @@
-import React from "react";
 import { Link } from "react-router-dom";
 
-function OrderConfirmation() {
+function ConfirmacionOrden() {
   return (
     <div className="max-w-4xl mx-auto px-4 py-8 text-center">
       <h1 className="text-3xl font-bold text-green-600 mb-4">
@@ -25,4 +24,4 @@ function OrderConfirmation() {
   );
 }
 
-export default OrderConfirmation;
+export default ConfirmacionOrden;

@@ -21,16 +21,18 @@ const ResumenCompra = () => {
           ))}
         </div>
 
-        {/* Subtotal y descuentos */}
+        {/* Formulario Subtotal y descuentos */}
         <div className="border-t pt-4 space-y-2">
+          {/* Subtotal */}
           <div className="flex justify-between">
             <span>Subtotal</span>
             <span>S/ {subtotal.toFixed(2)}</span>
           </div>
 
+          {/* Descuentos */}
           <div className="flex justify-between text-gray-600">
             <span>Descuentos</span>
-            <span>- S/ {discount.toFixed(2)}</span>
+            <span> - S/ {discount.toFixed(2)}</span>
           </div>
 
           {/* Total */}

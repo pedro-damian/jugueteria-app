@@ -9,16 +9,16 @@ const PaymentForm = ({ formData, handleChange, errors }) => {
           <div className="flex items-center p-3 border rounded-md bg-white">
             <input
               type="radio"
-              id="creditCard"
-              name="paymentMethod"
-              value="creditCard"
-              checked={formData.paymentMethod === "creditCard"}
+              id="debito"
+              name="metodoPago"
+              value="debito"
+              checked={formData.metodoPago === "debito"}
               onChange={handleChange}
               className="mr-3 focus:ring-green-500"
             />
-            <label htmlFor="creditCard" className="flex items-center flex-1">
+            <label htmlFor="debito" className="flex items-center flex-1">
               <span className="text-gray-700 font-medium">
-                Tarjeta de Débito/Crédito
+                Tarjeta de Débito
               </span>
               <div className="ml-auto flex space-x-2">
                 <img src="/visa.svg" alt="Visa" className="h-6" />
@@ -31,9 +31,9 @@ const PaymentForm = ({ formData, handleChange, errors }) => {
             <input
               type="radio"
               id="culqi"
-              name="paymentMethod"
+              name="metodoPago"
               value="culqi"
-              checked={formData.paymentMethod === "culqi"}
+              checked={formData.metodoPago === "culqi"}
               onChange={handleChange}
               className="mr-3 focus:ring-green-500"
             />
@@ -44,9 +44,9 @@ const PaymentForm = ({ formData, handleChange, errors }) => {
           </div>
         </div>
 
-        {errors.payment && (
+        {/* {errors.payment && (
           <p className="mt-2 text-red-600 text-sm">{errors.payment}</p>
-        )}
+        )} */}
       </div>
     </div>
   );
