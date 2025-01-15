@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import ProductCard from '../components/catalogo/ProductCard';
-import Filtros from '../components/catalogo/Filtros';
-import { productos as initialProducts } from '../data/productos';
+import React, { useState, useEffect } from "react";
+import ProductCard from "../components/catalogo/ProductCard";
+import Filtros from "../components/catalogo/Filtros";
+import { productos as initialProducts } from "../data/productos";
 
 function CatalogoProductos() {
   const [products, setProducts] = useState(initialProducts);
@@ -10,13 +10,15 @@ function CatalogoProductos() {
     marcas: [],
     precio: [],
   });
-  const [orden, setOrden] = useState("menor-mayor");
+
+  // Estados de filtro Precios
+  const [orden, setOrden] = useState("");
 
   const handleFilterChange = (filterType, value) => {
-    setFilters(prevFilters => ({
+    setFilters((prevFilters) => ({
       ...prevFilters,
       [filterType]: prevFilters[filterType].includes(value)
-        ? prevFilters[filterType].filter(item => item !== value)
+        ? prevFilters[filterType].filter((item) => item !== value)
         : [...prevFilters[filterType], value],
     }));
   };
@@ -29,28 +31,28 @@ function CatalogoProductos() {
     let filteredProducts = initialProducts;
 
     if (filters.categorias.length > 0) {
-      filteredProducts = filteredProducts.filter(product =>
-        filters.categorias.includes(product.categoria)
+      filteredProducts = filteredProducts.filter((product) =>
+        filters.categorias.includes(product.categoria),
       );
     }
 
     if (filters.marcas.length > 0) {
-      filteredProducts = filteredProducts.filter(product =>
-        filters.marcas.includes(product.brand)
+      filteredProducts = filteredProducts.filter((product) =>
+        filters.marcas.includes(product.brand),
       );
     }
 
     if (filters.precio.length > 0) {
-      filteredProducts = filteredProducts.filter(product => {
+      filteredProducts = filteredProducts.filter((product) => {
         const price = parseFloat(product.price);
-        return filters.precio.some(range => {
-          const [min, max] = range.split('-').map(Number);
+        return filters.precio.some((range) => {
+          const [min, max] = range.split("-").map(Number);
           return price >= min && (max ? price <= max : true);
         });
       });
     }
 
-    if (orden === "mayor-menor") {
+    if (orden === "menor-mayor") {
       filteredProducts.sort((a, b) => b.price - a.price);
     } else {
       filteredProducts.sort((a, b) => a.price - b.price);
@@ -77,6 +79,7 @@ function CatalogoProductos() {
             value={orden}
             onChange={handleOrdenChange}
           >
+            <option value="">Seleccione una opción</option>
             <option value="menor-mayor">Precio: menor a mayor</option>
             <option value="mayor-menor">Precio: mayor a menor</option>
           </select>
@@ -87,7 +90,7 @@ function CatalogoProductos() {
         <Filtros filters={filters} handleFilterChange={handleFilterChange} />
 
         <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 flex-grow ml-4">
-          {products.map(product => (
+          {products.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
         </section>

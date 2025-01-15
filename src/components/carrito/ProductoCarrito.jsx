@@ -1,34 +1,47 @@
-import React from 'react';
-import { FaTrash } from 'react-icons/fa';
+import React from "react";
+import { FaTrash } from "react-icons/fa";
 
-function Producto({ producto }) {
+function ProductoCarrito({ producto, onRemove, onUpdateQuantity }) {
+  const handleQuantityChange = (e) => {
+    const newQuantity = parseInt(e.target.value);
+    if (newQuantity > 0) {
+      onUpdateQuantity(newQuantity);
+    }
+  };
+
   return (
-    <div className="flex items-center border rounded-lg p-4">
+    <div className="flex items-center bg-white p-4 rounded-lg shadow">
       <img
-        src={producto.imagen}
-        alt={producto.nombre}
-        className="w-16 h-16 object-cover mr-4"
+        src={producto.image}
+        alt={producto.name}
+        className="w-24 h-24 object-cover rounded"
       />
-      <div className="flex-grow">
-        <p className="text-xs font-semibold">{producto.marca}</p>
-        <p className="text-sm font-bold">{producto.nombre}</p>
-        <div className="flex items-center gap-4 mt-2">
-          <p className="text-xs">S/ {producto.precio.toFixed(2)}</p>
-          <div className="flex items-center">
-            <button className="bg-gray-200 px-1 rounded-md">-</button>
-            <span className="text-xs mx-2">{producto.cantidad}</span>
-            <button className="bg-gray-200 px-1 rounded-md">+</button>
-          </div>
-          <p className="text-xs font-bold">
-            S/ {(producto.precio * producto.cantidad).toFixed(2)}
-          </p>
+      <div className="flex-grow ml-4">
+        <h3 className="font-semibold">{producto.name}</h3>
+        <p className="text-gray-600 text-sm">{producto.brand}</p>
+        <div className="flex items-center mt-2">
+          <input
+            type="number"
+            min="1"
+            value={producto.quantity}
+            onChange={handleQuantityChange}
+            className="w-16 border rounded px-2 py-1"
+          />
+          <button
+            onClick={onRemove}
+            className="ml-4 text-red-500 hover:text-red-700"
+          >
+            Eliminar
+          </button>
         </div>
       </div>
-      <button className="text-gray-500 hover:text-red-500">
-        <FaTrash />
-      </button>
+      <div className="text-right">
+        <p className="font-semibold">
+          S/ {(producto.price * producto.quantity).toFixed(2)}
+        </p>
+      </div>
     </div>
   );
 }
 
-export default Producto;
+export default ProductoCarrito;

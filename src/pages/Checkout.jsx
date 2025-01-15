@@ -4,7 +4,7 @@ import CheckoutProgress from "../components/checkout/CheckoutProgreso";
 import PersonalDataForm from "../components/checkout/DatosPersonales";
 import DeliveryForm from "../components/checkout/FormEntrega";
 import PaymentForm from "../components/checkout/FormPago";
-import OrderSummary from "../components/checkout/ResumenCompra";
+import OrderSummary from "../components/carrito/ResumenCarrito";
 import NavigationButtons from "../components/checkout/BotonesNavegacion";
 import BannerCheckout from "../components/checkout/BannerCheckout";
 

@@ -1,10 +1,9 @@
-import React from 'react';
-import { useParams } from 'react-router-dom';
-import { products } from '../../data/products'; // Asegúrate de que la ruta sea correcta
+import { useParams } from "react-router-dom";
+import { productos } from "../../data/productos"; // Asegúrate de que la ruta sea correcta
 
 function ProductDetail() {
   const { id } = useParams();
-  const product = products.find(p => p.id === parseInt(id));
+  const product = productos.find((p) => p.id === parseInt(id));
 
   if (!product) {
     return <div className="p-4">Producto no encontrado.</div>;
@@ -21,11 +20,15 @@ function ProductDetail() {
           />
         </div>
         <div className="md:flex-1 px-4">
-          <h2 className="text-2xl font-bold text-gray-800 mb-2">{product.name}</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-2">
+            {product.name}
+          </h2>
           <p className="text-gray-600 text-sm mb-4">{product.brand}</p>
           <div className="flex mb-4">
             <span className="font-bold text-gray-700">Precio:</span>
-            <span className="text-gray-600 ml-2">S/ {product.price.toFixed(2)}</span>
+            <span className="text-gray-600 ml-2">
+              S/ {product.price.toFixed(2)}
+            </span>
           </div>
           <p className="text-gray-500 text-sm">Código: {product.code}</p>
           <div className="mt-6">

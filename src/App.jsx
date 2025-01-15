@@ -13,14 +13,15 @@ import ProductList from "./pages/ProductList";
 import ProductDetail from "./components/catalogo/ProductDetail";
 import Carrito from "./pages/Carrito";
 import Checkout from "./pages/Checkout";
-import { CheckoutProvider } from "./context/CheckoutContext";
+import { AppProviders } from "./context/AppProviders";
 import ConfirmacionOrden from "./components/checkout/ConfirmacionOrden";
 import CatalogoProductos from "./pages/CatalogoProductos";
+import Favoritos from "./pages/Favoritos";
 
 function App() {
   return (
     <AuthProvider>
-      <CheckoutProvider>
+      <AppProviders>
         <div className="min-h-screen flex flex-col">
           <Navbar />
           <main className="flex-grow">
@@ -35,6 +36,7 @@ function App() {
                 path="/confirmacion-orden"
                 element={<ConfirmacionOrden />}
               />
+              <Route path="/favoritos" element={<Favoritos />} />
 
               <Route path="/product-catalog" element={<CatalogoProductos />} />
               {/* <Route path="/products" element={<ProductList />} /> */}
@@ -50,7 +52,7 @@ function App() {
           </main>
           <Footer />
         </div>
-      </CheckoutProvider>
+      </AppProviders>
     </AuthProvider>
   );
 }
