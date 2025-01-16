@@ -1,4 +1,4 @@
-.catalogo-container {
+/* .catalogo-container {
   display: flex;
   flex-direction: column;
   padding: 20px;
@@ -104,7 +104,7 @@
 }
 
 .acciones button:hover {
-  background-color: #2ed31f; /* Darker button color on hover */
+  background-color: #2ed31f;
 }
 
 .catalogo-footer {
@@ -141,3 +141,4 @@
 .catalogo-footer li:hover {
   text-decoration: underline;
 }
+ */

@@ -19,7 +19,7 @@ function Hero() {
             <p className="text-2xl mb-8">
               Los mejores juguetes para tus pequeños
             </p>
-            <Link to="products" className="btn-primary">Ver Juguetes</Link>
+            <Link to="product-catalog" className="btn-primary">Ver Juguetes</Link>
           </div>
         </div>
       </div>

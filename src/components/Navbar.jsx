@@ -143,7 +143,7 @@ function Navbar() {
                   Inicio
                 </Link>
                 <Link
-                  to=""
+                  to="product-catalog"
                   className="block px-3 py-2 text-gray-700 hover:text-primary hover:bg-gray-50"
                 >
                   Juguetes

@@ -2,17 +2,18 @@ import React from "react";
 import { useFavoritos } from "../context/FavoritosContext";
 import { useCart } from "../context/CartContext";
 import BannerCategoria from "../components/BannerCategoria";
-import { FaTrash, FaShoppingCart } from "react-icons/fa";
+import { FaTrashAlt, FaShoppingCart } from "react-icons/fa";
 
 function Favoritos() {
   const { favorites, toggleFavorite } = useFavoritos();
   const { addItem } = useCart();
 
+  // Si No hay ningun productos en favoritos 
   if (favorites.length === 0) {
     return (
       <>
         <BannerCategoria
-          url_imagen="https://images.pexels.com/photos/5632397/pexels-photo-5632397.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+          url_imagen="https://images.pexels.com/photos/168866/pexels-photo-168866.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
           nombreCategoria="Mis Favoritos"
         />
         <div className="container mx-auto px-4 py-8 text-center">
@@ -30,7 +31,7 @@ function Favoritos() {
   return (
     <>
       <BannerCategoria
-        url_imagen="https://images.pexels.com/photos/5632397/pexels-photo-5632397.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+        url_imagen="https://images.pexels.com/photos/168866/pexels-photo-168866.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
         nombreCategoria="Mis Favoritos"
       />
 
@@ -47,7 +48,7 @@ function Favoritos() {
                   alt={product.name}
                   className="w-full h-48 object-contain mb-4"
                 />
-                <h3 className="text-lg font-semibold mb-2">{product.name}</h3>
+                <h3 className="text-lg font-semibold mb-2 truncate">{product.name}</h3>
                 <p className="text-gray-500 text-sm mb-2">{product.brand}</p>
                 <p className="text-green-600 font-bold text-xl mb-4">
                   S/ {product.price.toFixed(2)}
@@ -63,15 +64,16 @@ function Favoritos() {
                   </button>
                   <button
                     onClick={() => toggleFavorite(product)}
-                    className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded transition-colors"
+                    className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded "
                   >
-                    <FaTrash />
+                    <FaTrashAlt />
                   </button>
                 </div>
               </div>
             </div>
           ))}
         </div>
+        
       </div>
     </>
   );
