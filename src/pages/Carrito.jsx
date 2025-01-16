@@ -1,15 +1,15 @@
-import React from "react";
 import { useCart } from "../context/CartContext";
 import Producto from "../components/carrito/ProductoCarrito";
 import Resumen from "../components/carrito/ResumenCarrito";
 import BannerCategoria from "../components/BannerCategoria";
+import { useState } from "react";
 
 function Carrito() {
   // Usamos el contexto del carrito
-  const { items: productos, subtotal, removeItem, updateQuantity } = useCart();
+  const { cart, removeItem, updateQuantity, subtotal } = useCart();
 
   // Si el carrito está vacío, mostramos un mensaje
-  if (productos.length === 0) {
+  if (!cart || cart.length === 0) {
     return (
       <>
         <BannerCategoria
@@ -36,7 +36,7 @@ function Carrito() {
       <div className="container mx-auto px-4 py-8 flex flex-col md:flex-row gap-8">
         <div className="w-full md:w-2/3">
           <div className="space-y-4">
-            {productos.map((producto) => (
+            {cart.map((producto) => (
               <Producto
                 key={producto.id}
                 producto={producto}

@@ -9,7 +9,7 @@ import { AuthProvider } from "./context/AuthContext";
 import NotFound from "./components/NotFound404";
 import UnderConstruction from "./components/UnderConstruction";
 //import ProductCatalog from "./pages/ProductCatalog";
-import ProductList from "./pages/ProductList";
+//import ProductList from "./pages/ProductList";
 import ProductDetail from "./components/catalogo/ProductDetail";
 import Carrito from "./pages/Carrito";
 import Checkout from "./pages/Checkout";
@@ -43,7 +43,6 @@ function App() {
               <Route path="/product/:id" element={<ProductDetail />} />
 
               {/* Rutas en construcción */}
-              <Route path="/favoritos" element={<UnderConstruction />} />
               <Route path="/ofertas" element={<UnderConstruction />} />
 
               {/* Ruta 404 para páginas no encontradas */}

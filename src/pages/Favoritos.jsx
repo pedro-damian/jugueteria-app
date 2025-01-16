@@ -3,12 +3,13 @@ import { useFavoritos } from "../context/FavoritosContext";
 import { useCart } from "../context/CartContext";
 import BannerCategoria from "../components/BannerCategoria";
 import { FaTrashAlt, FaShoppingCart } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 function Favoritos() {
   const { favorites, toggleFavorite } = useFavoritos();
   const { addItem } = useCart();
 
-  // Si No hay ningun productos en favoritos 
+  // Si No hay ningun productos en favoritos
   if (favorites.length === 0) {
     return (
       <>
@@ -42,29 +43,44 @@ function Favoritos() {
               key={product.id}
               className="bg-white rounded-lg shadow-md overflow-hidden"
             >
-              <div className="p-4">
+              {/* Contenido clickeable que lleva al detalle */}
+              <Link
+                to={`/product/${product.id}`}
+                className="block p-4 cursor-pointer"
+              >
                 <img
                   src={product.image}
                   alt={product.name}
                   className="w-full h-48 object-contain mb-4"
                 />
-                <h3 className="text-lg font-semibold mb-2 truncate">{product.name}</h3>
+                <h3 className="text-lg font-semibold mb-2 truncate">
+                  {product.name}
+                </h3>
                 <p className="text-gray-500 text-sm mb-2">{product.brand}</p>
                 <p className="text-green-600 font-bold text-xl mb-4">
                   S/ {product.price.toFixed(2)}
                 </p>
+              </Link>
 
+              {/* Botones de Agregar y Eliminar */}
+              <div className="p-4 pt-0">
                 <div className="flex gap-2">
                   <button
-                    onClick={() => addItem(product)}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      addItem(product);
+                    }}
                     className="flex-1 bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded transition-colors flex items-center justify-center gap-2"
                   >
                     <FaShoppingCart />
                     Agregar al Carrito
                   </button>
                   <button
-                    onClick={() => toggleFavorite(product)}
-                    className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded "
+                    onClick={(e) => {
+                      e.preventDefault();
+                      toggleFavorite(product);
+                    }}
+                    className="font-bold py-2 px-4 text-red-500 hover:bg-red-600 hover:text-white rounded"
                   >
                     <FaTrashAlt />
                   </button>
@@ -73,7 +89,6 @@ function Favoritos() {
             </div>
           ))}
         </div>
-        
       </div>
     </>
   );

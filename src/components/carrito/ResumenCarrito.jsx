@@ -1,7 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-function ResumenCarrito({ subtotal, descuentos, total }) {
+function ResumenCarrito({
+  subtotal,
+  descuentos,
+  total,
+  showCheckoutButton = true,
+}) {
   return (
     <div className="bg-white p-6 rounded-lg shadow">
       <h2 className="text-lg font-semibold mb-4">Resumen de compra</h2>
@@ -20,9 +25,15 @@ function ResumenCarrito({ subtotal, descuentos, total }) {
         </div>
       </div>
 
-      <button className="w-full bg-green-500 text-white font-semibold py-2 px-4 rounded mt-4 hover:bg-green-600 transition-colors">
-        Proceder al pago
-      </button>
+      {showCheckoutButton && (
+        <Link
+          to="/checkout"
+          className="w-full inline-block text-center bg-green-500 text-white font-semibold py-2 px-4 rounded mt-4
+                         hover:bg-green-600 transition-colors no-underline"
+        >
+          Proceder al pago
+        </Link>
+      )}
     </div>
   );
 }

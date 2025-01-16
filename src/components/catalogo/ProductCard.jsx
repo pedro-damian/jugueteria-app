@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { FaRegHeart, FaHeart } from "react-icons/fa";
+import { FaRegHeart, FaHeart, FaShoppingCart } from "react-icons/fa";
 import { useCart } from "../../context/CartContext";
 import { useFavoritos } from "../../context/FavoritosContext"; // contexto de favoritos
 import { useState } from "react";
@@ -8,6 +8,10 @@ function ProductCard({ product }) {
   const { addItem, cart } = useCart(); // Obtenemos las funciones del contexto
   const { toggleFavorite, isFavorite } = useFavoritos();
   const [isAdding, setIsAdding] = useState(false); // Estado para feedback visual
+
+  // Verificar si el producto ya está en el carrito
+  const itemInCart = cart.find((item) => item.id === product.id);
+  const quantityInCart = itemInCart ? itemInCart.quantity : 0;
 
   const productIsFavorite = isFavorite(product.id);
 
@@ -73,13 +77,18 @@ function ProductCard({ product }) {
         <button
           onClick={handleAddToCart}
           disabled={isAdding}
-          className={`w-full font-bold py-2 px-4 rounded transition-colors mt-4 ${
+          className={`w-full font-bold py-2 px-4 rounded transition-all flex items-center justify-center gap-2 ${
             isAdding
-              ? "bg-green-700 text-white cursor-not-allowed"
+              ? "bg-green-700 text-white cursor-not-allowed opacity-75"
               : "bg-green-500 hover:bg-green-600 text-white"
           }`}
         >
-          {isAdding ? "Agregado!" : "Agregar al Carrito"}
+          <FaShoppingCart size={16} />
+          {isAdding
+            ? "¡Agregado!"
+            : quantityInCart > 0
+              ? "Agregar más"
+              : "Agregar al Carrito"}
         </button>
       </div>
     </Link>

@@ -7,9 +7,11 @@ import PaymentForm from "../components/checkout/FormPago";
 import OrderSummary from "../components/carrito/ResumenCarrito";
 import NavigationButtons from "../components/checkout/BotonesNavegacion";
 import BannerCheckout from "../components/checkout/BannerCheckout";
+import { useCart } from "../context/CartContext";
 
 function Checkout() {
   const navigate = useNavigate();
+  const { cart, subtotal } = useCart(); // Obtenemos datos del carrito
   const {
     step,
     formData,
@@ -21,10 +23,30 @@ function Checkout() {
     processPayment,
   } = useCheckout();
 
+  //Validación para carrito vacío
+  if (!cart || cart.length === 0) {
+    return (
+      <div className="text-center py-12">
+        <h2 className="text-2xl font-semibold mb-4">El carrito está vacío</h2>
+        <button
+          onClick={() => navigate("/product-catalog")}
+          className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
+        >
+          Ir a Catalogo de Productos
+        </button>
+      </div>
+    );
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (await processPayment()) {
-      navigate("/order-confirmacion");
+    try {
+      if (await processPayment()) {
+        navigate("/order-confirmacion");
+      }
+    } catch (error) {
+      console.error("Error al procesar el pago:", error);
+      // Aquí podrías mostrar un mensaje de error al usuario
     }
   };
 
@@ -39,9 +61,21 @@ function Checkout() {
           />
         );
       case 2:
-        return <DeliveryForm formData={formData} handleChange={handleChange} />;
+        return (
+          <DeliveryForm
+            formData={formData}
+            handleChange={handleChange}
+            errors={errors}
+          />
+        );
       case 3:
-        return <PaymentForm formData={formData} handleChange={handleChange} />;
+        return (
+          <PaymentForm
+            formData={formData}
+            handleChange={handleChange}
+            errors={errors}
+          />
+        );
       default:
         return null;
     }
@@ -55,10 +89,17 @@ function Checkout() {
 
         <div className="flex flex-col md:flex-row gap-8">
           <div className="w-full md:w-2/3 bg-white rounded-lg shadow-md p-6">
-            {renderStepContent()}
+            <form onSubmit={handleSubmit}>{renderStepContent()}</form>
           </div>
 
-          <OrderSummary />
+          <div className="w-full md:w-1/3">
+            <OrderSummary
+              subtotal={subtotal}
+              descuentos={0}
+              total={subtotal}
+              showCheckoutButton={false} // Para no mostrar el botón de proceder al pago
+            />
+          </div>
         </div>
 
         <NavigationButtons
