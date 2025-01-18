@@ -3,48 +3,64 @@ import { useState } from "react";
 import { autenticacionUsuario } from "../context/AuthContext";
 import { loginUser } from "../api/Autenticacion";
 
+// Componente reutilizable para un campo de entrada
+function InputField({ id, label, type, value, onChange, placeholder }) {
+  return (
+    <div>
+      <label htmlFor={id} className="block text-sm font-medium text-gray-700">
+        {label}
+      </label>
+      <div className="mt-1">
+        <input
+          id={id}
+          name={id}
+          type={type}
+          value={value}
+          onChange={onChange}
+          placeholder={placeholder}
+          required
+          className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500"
+        />
+      </div>
+    </div>
+  );
+}
+
+// Componente principal de login
 function Login() {
   const navigate = useNavigate();
   const { login } = autenticacionUsuario();
-  const [formData, setFormData] = useState({
-    username: "",
-    password: "",
-  });
+  const [formData, setFormData] = useState({ username: "", password: "" }); // Mantener 'username'
   const [error, setError] = useState("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
+    setFormData((prevState) => ({ ...prevState, [name]: value }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
 
-    // Log para debugging
-    console.log("Intentando login con:", {
-      username: formData.username,
-      password: formData.password.length, // solo la longitud por seguridad
-    });
-
     try {
-      const userData = await loginUser(formData);
-      console.log("Datos del usuario:", userData);
+      const userData = await loginUser(formData); // Llamada al API para obtener los datos del usuario
+      if (!userData.token) throw new Error("No se recibió el token de autenticación");
 
-      // Asegúrate de que tienes todos los datos necesarios
-      if (!userData.token) {
-        throw new Error("No se recibió el token de autenticación");
+      // Almacenar el token, username y userId en el localStorage
+      if (userData.token) {
+        localStorage.setItem("token", userData.token); // Almacenar el token
+        localStorage.setItem("username", userData.username); // Almacenar el username
+        localStorage.setItem("userId", userData.userId); // Almacenar el userId
       }
 
+      // Llamada a la función login para manejar el estado global (contexto)
       login({
         token: userData.token,
         username: userData.username,
-        email: userData.email,
+        userId: userData.userId, // Añadimos el userId al estado global
       });
-      navigate("/"); // Redirige a la página principal
+
+      navigate("/"); // Redirigir a la página principal después de login exitoso
     } catch (error) {
       console.error("Error en login:", error);
       setError(error.message || "Error al iniciar sesión");
@@ -52,93 +68,47 @@ function Login() {
   };
 
   return (
-    // Contenedor principal
-    <div className=" flex items-center justify-center bg-gray-100 px-4 py-12 sm:px-6 lg:px-8">
-      {/* Contenedor del formularioresponsivo */}
+    <div className="flex items-center justify-center bg-gray-100 px-4 py-12 sm:px-6 lg:px-8">
       <div className="w-full max-w-md space-y-8">
-        {/* Encabezado */}
-        <div className="text-center">
-          <h2 className="text-2xl font-bold tracking-tight text-gray-900">
-            Iniciar sesión
-          </h2>
-        </div>
-
-        {/* Contenedor del formulario con fondo blanco */}
+        <h2 className="text-center text-2xl font-bold text-gray-900">Iniciar sesión</h2>
         <div className="bg-white rounded-lg shadow px-6 py-8 sm:px-8">
-          {error && (
-            <div className="mb-4 p-2 bg-red-100 text-red-700 rounded">
-              {error}
-            </div>
-          )}
+          {error && <div className="mb-4 p-2 bg-red-100 text-red-700 rounded">{error}</div>}
 
           <form className="space-y-6" onSubmit={handleSubmit}>
-            <div>
-              <label
-                htmlFor="username"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Nombre Usuario:
-              </label>
-              <div className="mt-1">
-                <input
-                  placeholder="ingresa tu correo"
-                  id="username"
-                  name="username"
-                  type="text"
-                  value={formData.username}
-                  onChange={handleChange}
-                  required
-                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500"
-                />
-              </div>
-            </div>
-
-            <div>
-              <label
-                htmlFor="password"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Contraseña
-              </label>
-              <div className="mt-1">
-                <input
-                  placeholder="ingresa tu contraseña"
-                  id="password"
-                  name="password"
-                  type="password"
-                  value={formData.password}
-                  onChange={handleChange}
-                  required
-                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500"
-                />
-              </div>
-            </div>
-
-            <div>
-              <button
-                type="submit"
-                className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors duration-200"
-              >
-                Iniciar sesión
-              </button>
-            </div>
+            <InputField
+              id="username" // Cambié 'email' por 'username'
+              label="Nombre de Usuario:"
+              type="text" // Cambié 'username' por 'text' en el tipo
+              placeholder="Ingresa tu nombre de usuario"
+              value={formData.username} // Usando 'username'
+              onChange={handleChange}
+            />
+            <InputField
+              id="password"
+              label="Contraseña"
+              type="password"
+              placeholder="Ingresa tu contraseña"
+              value={formData.password}
+              onChange={handleChange}
+            />
+            <button
+              type="submit"
+              className="w-full flex justify-center py-2 px-4 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors duration-200"
+            >
+              Iniciar sesión
+            </button>
           </form>
 
-          {/* Enlace para iniciar sesión */}
-          <div className="mt-6">
-            <div className="relative">
-              <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-white text-gray-500">
-                  ¿No tienes una cuenta?{" "}
-                  <Link
-                    to="/registro"
-                    className="font-medium text-green-600 hover:text-green-500 transition-colors duration-200"
-                  >
-                    Registrate
-                  </Link>
-                </span>
-              </div>
-            </div>
+          <div className="mt-6 text-center">
+            <span className="text-gray-500">
+              ¿No tienes una cuenta?{" "}
+              <Link
+                to="/registro"
+                className="text-green-600 hover:text-green-500 transition-colors duration-200"
+              >
+                Regístrate
+              </Link>
+            </span>
           </div>
         </div>
       </div>

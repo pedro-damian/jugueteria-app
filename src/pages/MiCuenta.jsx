@@ -31,7 +31,9 @@ function MiCuenta() {
           seccionActiva={seccionActiva}
           setSeccionActiva={setSeccionActiva}
         />
-        <div className="flex-1">{renderizarSeccion()}</div>
+        <div className="flex-1">
+          {renderizarSeccion()}
+        </div>
       </div>
     </div>
   );
