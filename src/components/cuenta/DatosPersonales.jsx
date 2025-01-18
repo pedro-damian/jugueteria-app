@@ -44,7 +44,7 @@ const DatosPersonales = () => {
         }
 
         const data = await response.json();
-        console.log("Datos del usuario obtenidos:", data); // Verificar los datos obtenidos
+        console.log("Datos del usuario obtenidos:", data); // Verificar los datos que se obtiene
 
         // Asegurarse de que los campos estén definidos y actualizar el estado correctamente
         setUser((prevUser) => ({
