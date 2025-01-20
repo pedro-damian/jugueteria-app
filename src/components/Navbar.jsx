@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { FaShoppingCart, FaRegHeart } from "react-icons/fa";
 import { FiUser, FiShoppingCart, FiMenu, FiX } from "react-icons/fi";
@@ -19,7 +19,11 @@ function Navbar() {
   };
 
   const handleLogout = () => {
+    const confirmar = window.confirm("¿Estás seguro que deseas cerrar sesión?");
+    if (confirmar) {
     logout();
+    useNavigate("/")
+    }
     setIsUserMenuOpen(false);
   };
 
