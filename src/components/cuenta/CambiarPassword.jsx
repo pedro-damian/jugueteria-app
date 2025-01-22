@@ -10,7 +10,7 @@ function CambiarPassword() {
   });
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-  const [showPassword, setShowPassword] = useState({
+  const [showPassword, setShowPassword] = useState({ // Estado para controlar la visibilidad de las contraseñas.
     passwordActual: false,
     passwordNuevo: false,
     confirmarPassword: false,
@@ -19,6 +19,7 @@ function CambiarPassword() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
 
+  // Efecto para obtener el ID de usuario y el token de autenticación al cargar el componente.
   useEffect(() => {
     const userId = localStorage.getItem("id");
     const token = localStorage.getItem("token");
@@ -32,6 +33,7 @@ function CambiarPassword() {
     setUserId(userId);
   }, [navigate]);
 
+  // Función para manejar cambios en los campos del formulario
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -42,13 +44,15 @@ function CambiarPassword() {
     setSuccess("");
   };
 
-  const togglePasswordVisibility = (field) => {
+  // Función para alternar la visibilidad de las contraseñas
+  const togglePasswordVisibility = (field) => { 
     setShowPassword((prev) => ({
       ...prev,
       [field]: !prev[field],
     }));
   };
 
+  // Función para manejar errores de la solicitud
   const handleFetchError = async (response) => {
     const errorData = await response.json();
     setError(errorData.message || "Ocurrió un error");
@@ -56,6 +60,7 @@ function CambiarPassword() {
     return;
   };
 
+  // Función para manejar el envío del formulario
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");

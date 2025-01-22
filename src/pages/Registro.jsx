@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { registerUser } from "../api/Registro";
 
 function Registro() {
@@ -15,6 +16,20 @@ function Registro() {
   const [errors, setErrors] = useState({});
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+
+  const [showPassword, setShowPassword] = useState({ // Estado para controlar la visibilidad de las contraseñas.
+    password: false,
+  });
+
+
+  // Función para alternar la visibilidad de las contraseñas
+  const togglePasswordVisibility = (field) => {
+    setShowPassword((prev) => ({
+      ...prev,
+      [field]: !prev[field],
+    }));
+  };
+
 
   // Manejar cambios en los inputs
   const handleChange = (e) => {
@@ -116,9 +131,8 @@ function Registro() {
                   type="text"
                   value={formData.username}
                   onChange={handleChange}
-                  className={`appearance-none block w-full px-3 py-2 border ${
-                    errors.username ? "border-red-500" : "border-gray-300"
-                  } rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500`}
+                  className={`appearance-none block w-full px-3 py-2 border ${errors.username ? "border-red-500" : "border-gray-300"
+                    } rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500`}
                 />
                 {errors.username && (
                   <p className="mt-1 text-sm text-red-600">{errors.username}</p>
@@ -141,9 +155,8 @@ function Registro() {
                   type="text"
                   value={formData.lastname}
                   onChange={handleChange}
-                  className={`appearance-none block w-full px-3 py-2 border ${
-                    errors.lastname ? "border-red-500" : "border-gray-300"
-                  } rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500`}
+                  className={`appearance-none block w-full px-3 py-2 border ${errors.lastname ? "border-red-500" : "border-gray-300"
+                    } rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500`}
                 />
                 {errors.lastname && (
                   <p className="mt-1 text-sm text-red-600">{errors.lastname}</p>
@@ -166,9 +179,8 @@ function Registro() {
                   type="email"
                   value={formData.email}
                   onChange={handleChange}
-                  className={`appearance-none block w-full px-3 py-2 border ${
-                    errors.email ? "border-red-500" : "border-gray-300"
-                  } rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500`}
+                  className={`appearance-none block w-full px-3 py-2 border ${errors.email ? "border-red-500" : "border-gray-300"
+                    } rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500`}
                 />
                 {errors.email && (
                   <p className="mt-1 text-sm text-red-600">{errors.email}</p>
@@ -183,21 +195,27 @@ function Registro() {
               >
                 Contraseña:
               </label>
-              <div className="mt-1">
+              <div className="mt-1 relative">
                 <input
                   placeholder="crea tu contraseña"
                   id="password"
                   name="password"
-                  type="password"
+                  type={showPassword.password ? "text" : "password"}
                   value={formData.password}
                   onChange={handleChange}
-                  className={`appearance-none block w-full px-3 py-2 border ${
-                    errors.password ? "border-red-500" : "border-gray-300"
-                  } rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500`}
+                  className={`appearance-none block w-full px-3 py-2 border ${errors.password ? "border-red-500" : "border-gray-300"
+                    } rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500`}
                 />
                 {errors.password && (
                   <p className="mt-1 text-sm text-red-600">{errors.password}</p>
                 )}
+                <button
+                  type="button"
+                  onClick={() => togglePasswordVisibility("password")}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                >
+                  {showPassword.passwordActual ? <FaRegEye /> : <FaRegEyeSlash />}
+                </button>
               </div>
             </div>
 

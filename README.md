@@ -1,8 +1,11 @@
-# React + Vite
+# Jugueteria Mundo Magico
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Jugueteria Mundo Magico** es una empresa de juguetes con sede en Peru. Fundada en 1985, la empresa se especializa en la venta de juguetes.
 
-Currently, two official plugins are available:
+## Librerias Usadas en el Proyecto
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **TailwindCSS**: Para el diseño y la estructura de la página web.
+- **React**: Para la creación de componentes reutilizables y la gestión del estado de la aplicación.
+- **React Router DOM**: Para la navegación entre diferentes páginas de la aplicación.
+- **React Icons**: Para la inclusión de iconos en la aplicación.
+- **React Toastify**: Para mostrar notificaciones emergentes en la aplicación.

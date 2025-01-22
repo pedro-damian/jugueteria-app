@@ -2,15 +2,16 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { autenticacionUsuario } from "../context/AuthContext";
 import { loginUser } from "../api/Autenticacion";
+import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 
 // Componente reutilizable para un campo de entrada
 function InputField({ id, label, type, value, onChange, placeholder }) {
   return (
-    <div>
+    <div className=" relative">
       <label htmlFor={id} className="block text-sm font-medium text-gray-700">
         {label}
       </label>
-      <div className="mt-1">
+      <div className="mt-1 relative">
         <input
           id={id}
           name={id}
@@ -19,7 +20,7 @@ function InputField({ id, label, type, value, onChange, placeholder }) {
           onChange={onChange}
           placeholder={placeholder}
           required
-          className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500"
+          className=" w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500"
         />
       </div>
     </div>
@@ -32,6 +33,19 @@ function Login() {
   const { login } = autenticacionUsuario();
   const [formData, setFormData] = useState({ username: "", password: "" }); // Mantener 'username'
   const [error, setError] = useState("");
+
+  // Estado para controlar la visibilidad de las contraseñas.
+  const [showPassword, setShowPassword] = useState({
+    password: false,
+  });
+
+  // Función para alternar la visibilidad de las contraseñas
+  const togglePasswordVisibility = (field) => {
+    setShowPassword((prev) => ({
+      ...prev,
+      [field]: !prev[field],
+    }));
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -83,14 +97,25 @@ function Login() {
               value={formData.username} // Usando 'username'
               onChange={handleChange}
             />
-            <InputField
-              id="password"
-              label="Contraseña"
-              type="password"
-              placeholder="Ingresa tu contraseña"
-              value={formData.password}
-              onChange={handleChange}
-            />
+            <div className="relative">
+              <InputField
+                id="password"
+                label="Contraseña"
+                type={showPassword.password ? "text" : "password"}
+                
+                placeholder="Ingresa tu contraseña"
+                value={formData.password}
+                onChange={handleChange}
+              />
+              <button
+                type="button"
+                onClick={() => togglePasswordVisibility("password")}
+                className="absolute right-3 top-1/2 transform  -translate-y-1/8 text-gray-500 hover:text-gray-700"
+              >
+                {showPassword.password ? <FaRegEye /> : <FaRegEyeSlash />}
+              </button>
+            </div>
+
             <button
               type="submit"
               className="w-full flex justify-center py-2 px-4 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors duration-200"
